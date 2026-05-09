@@ -4,6 +4,7 @@ pydantic>=2
 pydantic-settings
 sqlalchemy>=2
 asyncpg
+psycopg2-binary
 alembic
 langgraph
 langchain
@@ -17,3 +18,4 @@ google-auth-oauthlib
 redis
 celery
 python-dotenv
+python-multipart
