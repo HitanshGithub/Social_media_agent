@@ -1,0 +1,10 @@
+import os
+from app.core.config import get_settings
+
+
+def configure_langsmith() -> None:
+    settings = get_settings()
+    os.environ['LANGCHAIN_TRACING_V2'] = 'true' if settings.langchain_tracing_v2 else 'false'
+    os.environ['LANGCHAIN_API_KEY'] = settings.langchain_api_key
+    os.environ['LANGCHAIN_PROJECT'] = settings.langchain_project
+    os.environ['LANGCHAIN_ENDPOINT'] = settings.langchain_endpoint
