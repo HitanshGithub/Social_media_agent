@@ -123,7 +123,7 @@ class JobAsset(Base):
     asset_type: Mapped[str] = mapped_column(String)
     file_path: Mapped[str] = mapped_column(Text)
     is_selected: Mapped[bool] = mapped_column(Boolean, default=False)
-    metadata: Mapped[dict] = mapped_column(JSONB, default=dict)
+    metadata_json: Mapped[dict] = mapped_column("metadata", JSONB, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
 
 

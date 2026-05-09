@@ -17,5 +17,6 @@ google-api-python-client
 google-auth-oauthlib
 redis
 celery
+flower
 python-dotenv
 python-multipart

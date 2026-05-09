@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:16
     environment:
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: SMA_db_2026!
       POSTGRES_DB: social_media_agent
     ports:
       - "5432:5432"
@@ -18,7 +18,7 @@ services:
   backend:
     build: ../backend
     env_file:
-      - ../.env.example
+      - ../.env
     ports:
       - "8000:8000"
     depends_on:
@@ -28,7 +28,7 @@ services:
   worker:
     build: ../backend
     env_file:
-      - ../.env.example
+      - ../.env
     command: celery -A app.core.celery_app.celery_app worker --loglevel=info
     depends_on:
       - backend
@@ -36,7 +36,7 @@ services:
   flower:
     build: ../backend
     env_file:
-      - ../.env.example
+      - ../.env
     command: celery -A app.core.celery_app.celery_app flower --port=5555
     ports:
       - "5555:5555"
