@@ -87,7 +87,7 @@ export default function App() {
             transition={{ duration: 0.25 }}
           >
             {view === 'dashboard' && <DashboardView onNavigate={setView} />}
-            {view === 'upload' && <UploadView />}
+            {view === 'upload' && <UploadView onNavigate={setView} />}
             {view === 'agent' && <AgentView />}
             {view === 'review' && <ReviewView />}
             {view === 'history' && <HistoryDashboard />}
@@ -129,10 +129,10 @@ function DashboardView({ onNavigate }) {
   )
 }
 
-function UploadView() {
+function UploadView({ onNavigate }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-      <UploadZone />
+      <UploadZone onNavigate={onNavigate} />
       <UploadProgress />
     </div>
   )

@@ -4,6 +4,7 @@ from pathlib import Path
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from app.core.config import get_settings
 from app.models.schemas import UploadResponse
+from app.api.jobs import JOBS
 
 router = APIRouter(prefix='/api/upload', tags=['upload'])
 
@@ -29,5 +30,14 @@ async def upload_video(file: UploadFile = File(...)):
 
     with open(dst, 'wb') as f:
         f.write(content)
+
+    # Register the job so it can be found later by /api/jobs/{job_id}/run
+    JOBS[job_id] = {
+        'job_id': job_id,
+        'status': 'uploaded',
+        'video_path': str(dst),
+        'video_filename': file.filename,
+        'user_id': 'anonymous',
+    }
 
     return UploadResponse(job_id=job_id, filename=file.filename, duration=0.0, resolution='unknown')

@@ -4,13 +4,14 @@ import { motion } from 'framer-motion'
 import { api } from '../api/client'
 import { useAgentStore } from '../store/agentStore'
 
-export default function UploadZone({ compact }) {
+export default function UploadZone({ compact, onNavigate }) {
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(null)
   const setJobId = useAgentStore((s) => s.setJobId)
   const setUploadProgress = useAgentStore((s) => s.setUploadProgress)
   const setUploadFile = useAgentStore((s) => s.setUploadFile)
+  const setCurrentStatus = useAgentStore((s) => s.setCurrentStatus)
 
   const onDrop = useCallback(async (files) => {
     const file = files[0]
@@ -32,13 +33,14 @@ export default function UploadZone({ compact }) {
         },
       })
       setJobId(data.job_id)
-      setSuccess(`Uploaded! Job ID: ${data.job_id}`)
+      setCurrentStatus('uploaded')
+      setSuccess(data.job_id)
     } catch (err) {
       setError(err.response?.data?.detail || 'Upload failed')
     } finally {
       setUploading(false)
     }
-  }, [setJobId, setUploadProgress, setUploadFile])
+  }, [setJobId, setUploadProgress, setUploadFile, setCurrentStatus])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -80,9 +82,24 @@ export default function UploadZone({ compact }) {
         </div>
       )}
       {success && (
-        <div className="card" style={{ marginTop: '0.75rem', borderColor: 'var(--green)' }}>
-          <p style={{ color: 'var(--green)', fontSize: '0.85rem' }}>✅ {success}</p>
-        </div>
+        <motion.div
+          className="card"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{ marginTop: '0.75rem', borderColor: 'var(--green)' }}
+        >
+          <p style={{ color: 'var(--green)', fontSize: '0.85rem', marginBottom: '0.75rem' }}>
+            ✅ Video uploaded successfully!
+          </p>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontFamily: 'JetBrains Mono, monospace', marginBottom: '0.75rem' }}>
+            Job ID: {success}
+          </p>
+          {onNavigate && (
+            <button className="btn btn-primary" onClick={() => onNavigate('agent')}>
+              🚀 Go to Agent Status → Run Pipeline
+            </button>
+          )}
+        </motion.div>
       )}
     </motion.div>
   )

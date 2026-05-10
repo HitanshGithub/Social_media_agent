@@ -1,53 +1,103 @@
-# Social Media Agent
+# 🤖 Social Media Agent
 
-Agentic AI YouTube publisher with FastAPI + LangGraph + React.
+An **Agentic AI YouTube Publisher** powered by a robust stack of modern web technologies. This application automates the process of generating video metadata, captions, chapters, and social media snippets using advanced AI pipelines.
 
-## Stack
-- Backend: FastAPI, SQLAlchemy async, PostgreSQL, Redis, Celery, LangGraph, LangChain, xAI Grok
-- Frontend: React + Vite + Zustand + TanStack Query
-- Infra: Docker Compose (db, redis, backend, worker, flower, frontend)
+---
 
-## Environment
-Copy `.env.example` to `.env` and set values, especially:
-- `XAI_API_KEY`
+## ✨ Features
+
+- **🎥 Video Processing Pipeline:** Upload videos and let the AI pipeline transcribe and analyze the content.
+- **🧠 Agentic AI:** Powered by LangGraph, LangChain, and xAI Grok to intelligently generate SEO-optimized titles, descriptions, and tags.
+- **📝 Content Editors:** Dedicated React components for editing captions, chapters, and reviewing AI-generated content.
+- **📊 SEO & Social Snippets:** Get real-time SEO scorecards and auto-generated snippets for Twitter, LinkedIn, etc.
+- **⚙️ Real-time Status:** Monitor the Celery worker pipeline directly from the UI with WebSocket integration.
+- **🗂️ History Dashboard:** View past jobs, manage uploads, and track API usage statistics.
+
+---
+
+## 🛠️ Technology Stack
+
+### **Frontend**
+- **Framework:** React + Vite
+- **Styling:** Tailwind CSS + Framer Motion (Animations)
+- **State Management:** Zustand
+- **Data Fetching:** TanStack Query (React Query)
+- **WebSockets:** Real-time updates from the backend agent
+
+### **Backend**
+- **Framework:** FastAPI
+- **Database:** PostgreSQL (Asyncpg) + SQLAlchemy
+- **Caching & Brokers:** Redis
+- **Task Queue:** Celery + Flower (Monitoring)
+- **AI / LLM:** LangGraph, LangChain, xAI Grok (via XAI_API_KEY)
+- **Media Processing:** Faster-Whisper, FFmpeg, Pillow
+
+### **Infrastructure**
+- **Containerization:** Docker & Docker Compose
+- **Services:** db, redis, backend, worker, flower, frontend
+
+---
+
+## 🚀 Getting Started
+
+### 1. Environment Setup
+Copy the example environment file and fill in your credentials.
+```bash
+cp .env.example .env
+```
+**Key variables to set:**
+- `XAI_API_KEY` (and `XAI_BASE_URL` if needed)
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 - `SECRET_KEY`
 
-## Run with Docker
+### 2. Run with Docker (Recommended)
+Easily spin up the entire stack using Docker Compose:
 ```bash
 docker compose -f docker/docker-compose.yml up --build
 ```
 
-## Backend dev
+### 3. Local Development (Without Docker)
+
+#### Backend
 ```bash
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## Frontend dev
+#### Frontend
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-## API Routes
-- `POST /api/upload`
-- `POST /api/jobs/{job_id}/run`
-- `GET /api/jobs/{job_id}`
-- `GET /api/jobs`
-- `POST /api/jobs/{job_id}/resume`
-- `DELETE /api/jobs/{job_id}`
+---
+
+## 📡 Key API Routes
+
+### **Jobs & Uploads**
+- `POST /api/upload` - Upload a new video
+- `GET /api/jobs` - List all jobs
+- `GET /api/jobs/{job_id}` - Get job details
+- `POST /api/jobs/{job_id}/run` - Start processing
+- `POST /api/jobs/{job_id}/resume` - Resume paused job
+- `DELETE /api/jobs/{job_id}` - Delete job
+- `WS /ws/{job_id}` - WebSocket for real-time Agent logs
+
+### **Authentication**
 - `GET /api/auth/google`
 - `GET /api/auth/google/callback`
 - `GET /api/auth/me`
 - `POST /api/auth/logout`
-- `GET /api/admin/traces`
-- `GET /api/admin/stats`
-- `WS /ws/{job_id}`
 
-## Notes
-- The code uses `XAI_API_KEY` and OpenAI-compatible `XAI_BASE_URL` for Grok calls.
-- Never commit secrets in git.
+### **Admin**
+- `GET /api/admin/traces` - LangSmith traces
+- `GET /api/admin/stats` - System statistics
+
+---
+
+## ⚠️ Important Notes
+- Ensure `ffmpeg` is installed on your system if running outside of Docker, as it is required for video processing and transcription.
+- **Security:** Never commit your `.env` file or API keys to version control.

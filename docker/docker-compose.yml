@@ -24,6 +24,9 @@ services:
     depends_on:
       - db
       - redis
+    volumes:
+      - uploads_data:/app/uploads
+      - outputs_data:/app/outputs
 
   worker:
     build: ../backend
@@ -32,6 +35,9 @@ services:
     command: celery -A app.core.celery_app.celery_app worker --loglevel=info
     depends_on:
       - backend
+    volumes:
+      - uploads_data:/app/uploads
+      - outputs_data:/app/outputs
 
   flower:
     build: ../backend
@@ -52,3 +58,5 @@ services:
 
 volumes:
   postgres_data:
+  uploads_data:
+  outputs_data:
