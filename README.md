@@ -1,21 +1,21 @@
-# 🤖 Social Media Agent
+#  Social Media Agent
 
 An **Agentic AI YouTube Publisher** powered by a robust stack of modern web technologies. This application automates the process of generating video metadata, captions, chapters, and social media snippets using advanced AI pipelines.
 
 ---
 
-## ✨ Features
+##  Features
 
-- **🎥 Video Processing Pipeline:** Upload videos and let the AI pipeline transcribe and analyze the content.
-- **🧠 Agentic AI:** Powered by LangGraph, LangChain, and xAI Grok to intelligently generate SEO-optimized titles, descriptions, and tags.
-- **📝 Content Editors:** Dedicated React components for editing captions, chapters, and reviewing AI-generated content.
-- **📊 SEO & Social Snippets:** Get real-time SEO scorecards and auto-generated snippets for Twitter, LinkedIn, etc.
-- **⚙️ Real-time Status:** Monitor the Celery worker pipeline directly from the UI with WebSocket integration.
-- **🗂️ History Dashboard:** View past jobs, manage uploads, and track API usage statistics.
+- ** Video Processing Pipeline:** Upload videos and let the AI pipeline transcribe and analyze the content.
+- ** Agentic AI:** Powered by LangGraph, LangChain, and xAI Grok to intelligently generate SEO-optimized titles, descriptions, and tags.
+- ** Content Editors:** Dedicated React components for editing captions, chapters, and reviewing AI-generated content.
+- ** SEO & Social Snippets:** Get real-time SEO scorecards and auto-generated snippets for Twitter, LinkedIn, etc.
+- ** Real-time Status:** Monitor the Celery worker pipeline directly from the UI with WebSocket integration.
+- ** History Dashboard:** View past jobs, manage uploads, and track API usage statistics.
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 ### **Frontend**
 - **Framework:** React + Vite
@@ -38,7 +38,7 @@ An **Agentic AI YouTube Publisher** powered by a robust stack of modern web tech
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### 1. Environment Setup
 Copy the example environment file and fill in your credentials.
@@ -98,6 +98,6 @@ npm run dev
 
 ---
 
-## ⚠️ Important Notes
+##  Important Notes
 - Ensure `ffmpeg` is installed on your system if running outside of Docker, as it is required for video processing and transcription.
 - **Security:** Never commit your `.env` file or API keys to version control.
